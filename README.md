@@ -143,7 +143,7 @@ For some variables, such as those related to basement and above ground levels, w
 
 **Incompatibility in Ground levels**
 
-![ground_level_incompatibility](Images/ground_level_incompatibility.png)
+![ground_level_incompatibility](Images/ground_level_incompatibility.jpg)
 
 We Utilized imputation techniques to address incompatibilities in ground levels
 
