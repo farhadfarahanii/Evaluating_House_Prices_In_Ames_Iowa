@@ -115,7 +115,7 @@ we could look into the main steps that we made through Exploratory Data Analysis
  **1. Analyzed the target variable (sale price) by examining its distribution** 
 
 
-![house_sale_price_distribution](images/house_sale_price_distribution.png)
+![house_sale_price_distributionn](Images/house_sale_price_distribution.png)
 
 **Number of houses with more than 500,000 sale price: 12** 
 **Further in pre-processing we decided to temoved some sale prices that were way outside of the majority of (prices more than 500,000)**
@@ -126,7 +126,7 @@ For some variables, such as those related to basement and above ground levels, w
 
 **Incompatibility in Ground levels**
 
-![sample_image_captions](images/sample_image_captions.png)
+![sample_image_captions](Images/sample_image_captions.png)
 
 We Utilized imputation techniques to address incompatibilities in ground levels
 
@@ -138,7 +138,7 @@ The overall aim of the Data Preprocessing phase is to clean and transform the da
 **1. Handling Missing Values**
 We assessed missing values across all variables including numerical and categorical ones and utilized different techniques based on the nature of the data and the amount of missingness. In the following we could see numerical variables with their missing values:
 
-![missing_values](images/missing_values.png)
+![missing_values](Images/missing_values.png)
 
 - After identifying missing values in numerical variables, we handled them by dropping columns with more than 10% null values, utilizing imputation techniques, and dropping some null values. 
 - We also utilized imputation technique for filling missing values in categorical variables.
@@ -146,24 +146,24 @@ We assessed missing values across all variables including numerical and categori
 **2. Managing Outliers**
 Scatter plots can help to identify patterns and trends in the data, and can also highlight any data points that fall outside of the expected range. Once we have identified outliers, we removed them from the dataset to help to improve the accuracy of our analysis and modeling by reducing the impact of extreme values. In the following we could see scatter plots and outliers in some of them:
 
-![scatter_plots_1](images/scatter_plots_1.png)
-![scatter_plots_2](images/scatter_plots_2.png)
-![scatter_plots_3](images/scatter_plots_3.png)
-![scatter_plots_4](images/scatter_plots_4.png)
-![scatter_plots_5](images/scatter_plots_5.png)
-![scatter_plots_6](images/scatter_plots_6.png)
-![scatter_plots_7](images/scatter_plots_7.png)
+![scatter_plots_1](Images/scatter_plots_1.png)
+![scatter_plots_2](Images/scatter_plots_2.png)
+![scatter_plots_3](Images/scatter_plots_3.png)
+![scatter_plots_4](Images/scatter_plots_4.png)
+![scatter_plots_5](Images/scatter_plots_5.png)
+![scatter_plots_6](Images/scatter_plots_6.png)
+![scatter_plots_7](Images/scatter_plots_7.png)
 
 **3. Handling Categorical Values**
 If a categorical variable has very little diversity, meaning that most of the values fall into one or two categories, it may not be useful for our analysis. In this case, we chose to drop the variable entirely, as it is unlikely to provide meaningful information.
 However, in some cases, a categorical variable may have many different possible values, but some of these values may occur very rarely. These low-frequency values may not provide enough information to be useful on their own, but they may still contain some valuable information when combined with other similar values.
 To address this issue, we created a new category called "Other" and grouped all of the low-frequency values into this category. This can help to simplify the dataset and reduce the number of categories we need to consider in our analysis. In the following we could see the example of each situation that we talked about:
 
-![lack_diversity](images/lack_diversity.png)
+![lack_diversity](Images/lack_diversity.png)
 
 **Categorical variable with lack of diversity**
 
-![low_frequency_values](images/low_frequency_values.png)
+![low_frequency_values](Images/low_frequency_values.png)
 
 **Categorical variable with low-frequency values**
 
@@ -178,11 +178,11 @@ By transforming categorical variables to numeric form, we can enable our models 
 
 In the following we could see two types of categorical variables that we transformed them with above techniques:
 
-![ordinal_category](images/ordinal_category.png)
+![ordinal_category](Images/ordinal_category.png)
 
 **Categorical variable that will be transformed with mapping (ordinal one)**
 
-![one_hot_encoding_category](images/one_hot_encoding_category.png)
+![one_hot_encoding_category](Images/one_hot_encoding_category.png)
 
 **Categorical variable that will be transformed with one-hot encoding**
 
