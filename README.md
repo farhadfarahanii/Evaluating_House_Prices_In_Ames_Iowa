@@ -131,6 +131,7 @@ For some variables, such as those related to basement and above ground levels, w
 We Utilized imputation techniques to address incompatibilities in ground levels
 
 ### Preprocessing
+
 The overall aim of the Data Preprocessing phase is to clean and transform the data to make it more suitable for modeling, handle missing data, reduce noise, and improve the performance of the model. This phase typically involves several steps as following:
 
 **Preprocessing Steps**
@@ -188,139 +189,93 @@ In the following we could see two types of categorical variables that we transfo
 
 
 
-### Exploratory Data Analysis (EDA)
-In image captioning, the length of the generated captions can have a significant impact on the performance and quality of the model. It is therefore important to understand the distribution of caption lengths in the training data. One way to visualize this distribution is to use a histogram.
-
-The resulting histogram can provide insights into the distribution of caption lengths in the training data. For example, it may reveal that most captions are relatively short, with a few longer captions that are outliers. This information can be used to inform the design and development of the image captioning model, such as adjusting the maximum caption length or exploring techniques for handling longer captions.
-The below histogram shows the distribution of captions lengths. It shows that the most captions length are 10 and it has the normal distribution. By this histogram we will set the maximum caption length to 25. By setting a maximum caption length, we ensure that the model can handle captions of different lengths, making it more robust and generalizable. If a caption in the training set is longer than 15 words, it will be truncated to 15 words. Similarly, if a caption is shorter than 15 words, it will be padded with special tokens to reach the desired length.
-
-![Distribution_Words_In_Caption](images/Distribution_Words_In_Caption.png)
-
-#### Vectorize the text
-The resulting plot can provide insights into the most frequent words. By having this plot we could see that most images are about people and dogs, explaining what they are wearing or doing with color detail descriptions.
-
-![Words_Most_Frequencies](images/Words_Most_Frequencies.png)
-
-
-### EDA and Cleaning Summary
-
-- We analyzed the image and caption data to get an understanding of the dataset's characteristics.
-- Cleaned the captions by applying several pre-processing steps, such as lowercasing, removing special characters, extra spaces, and single characters. Beside that, we added start and end tokens. we are essentially giving the model a cue as to when the caption starts and ends.
-- Created a new dataset that includes cleaned image-caption pairs. This cleaned dataset will serve as the input for training the image caption model.
-- Also plotted a histogram of caption lengths to understand the distribution of caption lengths in the cleaned dataset. This visualization helps inform the choice of hyperparameters for the model, such as the maximum caption length.
+**EDA and Pre-processing Summary**
+- Conducted exploratory data analysis (EDA) on target sale price and its predictors (numerical and categorical variables)
+Addressed null values:
+ - Dropped columns with more than 10% null values
+ - Utilized imputation techniques
+ - Dropped some null values
+- Addressed outliers using scatter plots and removed them from the dataset
+- Worked on categorical variables:
+ - Replaced values with fewer frequencies to "Other"
+ - Changed neighborhood names to be more understandable
+- Removed some sale prices that were way outside of the majority of prices
+- Utilized imputation techniques to address incompatibilities in gr levels
 
 ---
 
-## Image Feature Extraction
-Image feature extraction is a critical step in image captioning, as it involves converting raw image data into a set of numerical features that can be used as input to the image captioning model. One way to perform to do is to use a pretrained deep learning CNN models such as VGG16, ResNet, Densenet201 or Inception. These models are trained on large datasets such as ImageNet (a large-scale dataset consisting of more than 14 million labeled images across 20,000 different categories), and have learned to extract meaningful and discriminative features from images.
+### Correlation of All Features with Target
 
-The process of using a pretrained model for image feature extraction involves the following steps:
+After transforming all categorical features to numerical, by visualizing the correlation between each predictor and the target variable, we can identify which features have the strongest relationship with the target and may be good predictors in your machine learning model. In the following we can see a plot which visualizes the correlation between all predictors and our target Sale Price:
 
-- Load the Pretrained Model
-- Remove the Classification Layers: These layers are designed to predict the class label of an image, which is not relevant for image feature extraction.
-- Extracting Image Features: This is done by passing each image through the modified model, and obtaining the output of one of the intermediate layers. The output of this layer represents a set of high-level features that capture the visual content of the image.
-- Save the Extracted Features
-
-Overall, using a pretrained CNN model for image feature extraction is a powerful technique that can significantly improve the performance of image captioning models. By leveraging the power of these models, we can obtain a rich representation of the visual content of images, which can be used to generate accurate and informative captions.
-
-### CNN Pre-Trained Models
-Here we will utilize Densenet201 and VGG16 for extracting features from images. VGG16 is a relatively simple architecture compared to DenseNet201, with 16 layers of convolution and pooling operations. It has been widely used for transfer learning in image classification tasks and has achieved state-of-the-art performance on several benchmark datasets. However, VGG16 is computationally expensive and can be slow to train.
-
-DenseNet201, on the other hand, has more layers and a more complex architecture that allows for better feature reuse and can improve the flow of information through the network. It has also shown good performance on a variety of image classification tasks, and is relatively computationally efficient compared to some other deep neural network architectures.
-
-In general, if you have a large dataset and computational resources, DenseNet201 may be a better choice, as it can capture more complex features and can potentially achieve better performance. If you have limited data and computational resources, VGG16 may be a better choice, as it is simpler and faster to train.
-
-### Pre-Trained DenseNet201 Model
-We set the input layer to be the same as the input layer of the original DenseNet201 model, and the output layer to be the second-to-last layer of the original model. This removes the final classification layer, which was responsible for predicting the class labels of the input images. The below image shows us the architecture of Densenet201 which is dowloaded from https://www.researchgate.net/figure/DenseNet201-architecture-with-extra-layers-added-at-the-end-for-fine-tuning-on-UCF-101_fig2_353225711 .
-
-
-![DenseNet201_architecture](images/DenseNet201_architecture.png)
-**DenseNet201 architecture with extra layers added at the end for fine tuning**
-
-
-### Pre-Trained VGG16 Model
-Like DenseNet 201, we set the input layer to be the same as the input layer of the original DenseNet201 model, and the output layer to be the second-to-last layer of the original model. This removes the final classification layer, which was responsible for predicting the class labels of the input images. The below image shows us the architecture of VGG16 which is dowloaded from https://www.hindawi.com/journals/am/2023/6147422/ .
-
-![VGG16_network_architecture](images/VGG16_network_architecture.png)
-
-### Image Feature Extraction Summary
-- loaded two pre-trained models, VGG16 and DenseNet201.
-- Removed the classification layer from both models.
-- Passed each image in our dataset through each of these models to obtain a set of features for the image.
-- Extracted features stored in separate files.
-
-**These extracted features will be used as input to train an image captioning model**
+![correlation](Images/correlation.png)
 
 ---
 
-## Image Captioning Models
-The goal of this project as explained before, is to create an image captioning model that can generate descriptive and accurate captions for images. To achieve this, we first explored the dataset and cleaned the captions, by visualizing the distribution of caption lengths, we determined the maximum caption length. We then utilized pre-trained CNN models, VGG16 and DenseNet201, to extract image features which will be passed through an LSTM model to generate captions. To enhance the quality of the captions, we will also utilize GloVe embeddings to represent the words in the captions, allowing the model to better understand the semantic meaning of the words. During training, the models will be trained using a large dataset of image-caption pairs, and the weights of the model will be updated using backpropagation to minimize the loss function. Once trained, the model can be used to generate captions for new images by passing the image through the CNN and then feeding the extracted features into the LSTM to generate the caption word by word. Overall, the CNN-LSTM combination is a powerful approach for image captioning that leverages the strengths of both architectures, and has been shown to achieve state-of-the-art results on various benchmarks.
+### Feature Engineering
 
-![CNN_LSTM_Model](images/CNN_LSTM_Model.png)
+After cleaning and preprocessing our data and creating initial regression models, we performed feature engineering to see if we can further improve our model's performance. In this case, we created new features based on the sum of other features and utilized PolynomialFeature engineering.
 
-### Data Generation
-- This model is exactly the same as the previous CNN with regularization techniques implemented, with an addition of a data augmentation technique.
-- Because the audio data has essentially been transcoded into something similar to an image, flipping the "image" can effectively add more diverse data for the model to train on. This flipping is analogous to feeding the audio clip through the model in reverse.
-- Adding this diversity in data can improve the model without having to truly provide it more data.
-- As can be seen below, the model begins overfitting very early on, similar to the other CNNs. It also continues improving like the CNN with regularization. The difference is that it learns a little slower, but keeps a closer range between the train and test data, allowing for an increase in overall performance.
+- To create new features based on the sum of other features, we added together pairs of features that we believed the result may have a strong relationship with the target variable.
+- We also utilized PolynomialFeature engineering to create new features that capture nonlinear relationships between the predictors and the target variable. This technique involves creating polynomial terms of existing features, such as squared or cubed terms. Here we will only consider squered term.
 
-### Tokenization and Model with GloVe's Pretrained Embeddings
-The words in a sentence are separated/tokenized and encoded in a one hot representation. These encodings are then passed to the embeddings layer to generate word embeddings. The basic idea behind the GloVe word embedding is to derive the relationship between the words from statistics. Unlike the occurrence matrix, the co-occurrence matrix tells you how often a particular word pair occurs together. Each value in the co-occurrence matrix represents a pair of words occurring together.
-
-### Modelling With Extracted Image Features From DenseNet201 and VGG16
-The image embedding representations are concatenated with the first word of sentence ie. starsen and passed to the LSTM network and the LSTM network starts generating words after each input thus forming a sentence at the end.
-We used The same model architecture for both extracted image features from DenseNet201 and VGG16 to have a clear evaluation by having the same conditions. For both models we leveraged normalization techniques like dropout to prevent overfitting, beside that we defined callbacks like ModelCheckpoint, EarlyStopping and ReduceLROnPlateau for monitoring and reducing the loss score.
-
-**Image Caption Model Architecture**
-
-![Image_Caption_Model](images/Image_Caption_Model.png)
+By creating new features based on the sum of other features and utilizing PolynomialFeature engineering, we hope to capture more complex relationships between the predictors and the target variable, and improve the accuracy and generalizability of our regression models.
 
 
-In the following we could see the plots showing the loss and accuracy score over the number of epochs in each model.
+### Create a Large Dataset with Polynomial Features of All Predictors
+
+After applying the polynomial feature transformer on all of our features, we ended up with a large number of features, which leaded to overfitting. To avoid overfitting, we needed to use normalization techniques to make the model more generalized. One of the main normalization techniques is scaling, which is necessary because our features have different scales. Scaling helps to ensure that all features are equally important during training, regardless of their initial scale. Without scaling, larger features may have a disproportionately greater impact on the model's prediction, which can lead to overfitting. Therefore, we utilized standard scaling to scale our features, which involves transforming the data to have zero mean and unit variance.
 
 
-**Accuracy and Loss Score With DensNet201-LSTM Model**
+### Normalization with Ridge and Lasso
 
-![Accuracy_Loss_DensNet201_LSTM_Model](images/Accuracy_Loss_DensNet201_LSTM_Model.png)
+After applying polynomial features and standard scaling on the training data, we observed that the model was extremely overfitted. This means that the model was performing very well on the training data but was not able to generalize well on the unseen data (test data).
 
+To address this issue, we employed Ridge and Lasso normalization techniques. Ridge and Lasso are regularization methods that add a penalty term to the loss function to shrink the coefficients of the predictors towards zero. However, there is a difference between them. Ridge regression adds a penalty term equivalent to the square of the magnitude of the coefficients, while Lasso regression adds a penalty term equivalent to the absolute magnitude of the coefficients.
 
-**Accuracy and Loss Score With VGG16-LSTM Model**
-
-![Accuracy_Loss_VGG16_LSTM_Model](images/Accuracy_Loss_VGG16_LSTM_Model.png)
-
-
-|**Model**|**Accuracy**|**Loss**|
-|---|---|---|
-|**DensNet201-LSTM**|0.30|3.74
-|**VGG16-LSTM**|0.31|3.69
-
-In the following we could see some result samples of images with their generated captions by our model.
-
-
-![Sample_Results_of_Generated_Captions](images/Sample_Results_of_Generated_Captions.png)
-
+Moreover, we utilized Ridge CV and Lasso CV techniques. Ridge CV and Lasso CV are similar to Ridge and Lasso, respectively, but they use cross-validation to find the best value of the regularization parameter alpha. This helps to select the optimal value of alpha, which balances the trade-off between the bias and variance of the model.
 
 ---
 
-## Text-To-Speech System For Generated Captions
-Text-to-speech is the process of converting written text into spoken words. This technology has numerous applications, including assisting people with visual impairments to access digital content such as web pages, books, and other forms of text-based media.
+### Models Evaluation
 
-In the context of our project, text-to-speech can be used to generate audio descriptions for the images that we have captioned. This can be particularly useful for blind or visually impaired individuals who may not be able to see the images themselves, but can still benefit from a verbal description of the content.
+In this phase, we compared six different models to determine the best performing one:
+- The First Model **(Baseline)**: which was based solely on numerical features before transforming categorical features into numerical ones. We utilized cross-validation and a linear model to obtain the baseline score.
+- The Second Model **(Regression Model)**: Involved a regression model on all features.
+- The Third Model **(Regression on Engineered Features)**: Incorporated feature engineering and added some engineered features.
+- The Fourth Model **(Overfitted Model)**: We then created an overfitted model by applying a polynomial transformer with a second degree on all features, resulting in the fourth model.
+- The Fith Model **(Ridge CV Regression Model)**: To prevent overfitting, we utilized normalization technique and created the fifth model with Ridge CV.
+- The Sixth Model **(Lasso CV Regression Model)**: To prevent overfitting, we utilized another normalization technique and created the sixth model with Lasso CV.
 
-To generate audio descriptions for the images in our project, we used gTTS to convert the image captions into spoken words.
+In the following table we could see the models with their scores:
+
+|Model|MSE Score|RMSE Score|Test R-Squered Score|
+|---|---|---|---|
+|Baseline|---|---|0.8788|
+|Regression|421685876.9387207|20534.991525167978|0.92128|
+|Regression on Engineered Features|337570067.90575826|18373.079978755828|0.9369|
+|Overfitted Model|938254321.4937987|30630.93732639925|0.8248|
+|Ridge CV Regression Model|359520615.6486912|18961.028865773376|0.9328|
+|Lasso CV Regression Model|326008366.9197571|18055.701784194298|0.9391|
+
+The third and sixth models received the highest scores in terms of R-squared, RMSE, and MASE, with the sixth model being slightly better. However, it was extremely overfitted and could not be used for any prediction without normalization. The third model had less features, less overfitting, and was more interpretable. We believe that by working on the relationship of the features and creating more meaningful engineered features, we could further improve its performance.
 
 ---
 
 ### Conclusions and Recommendations
 
 ### Conclusions
-- Based on the project, we have successfully developed an image captioning model that can generate captions for images. The model combines both Convolutional Neural Network (CNN) and Long Short-Term Memory (LSTM) networks to generate captions that are relevant to the image content. We have also utilized GloVe word embeddings to improve the accuracy of the generated captions.
-- To extract the image features, we have used pre-trained models, VGG16 and DenseNet201, and found that final model (CNN-LSTM) performance with VGG16 is slightly better in terms of loss and accuracy score.
-- Finally, we have utilized text-to-speech technology to convert the generated captions into audio descriptions for visually impaired individuals.
+
+- Through careful analysis and modeling, we have developed a reliable and accurate regression model for predicting home prices in Ames, Iowa.
+- Our model takes into account a wide range of key features, including property area, Quality ratings, Builtimg year, location, condition, and amenities, among others.
+- By utilizing advanced techniques such as feature engineering, polynomial transformation, and regularization, we were able to improve the performance of our model and achieve strong results in terms of R-squared and RMSE scores.
+- We believe that our model can be a valuable tool for our clients, helping them to make informed decisions about their real estate investments and achieve their financial goals.
+
 
 ### Recommendations
-- We suggest further exploration can be conducted on the impact of different pre-trained models and different word embeddings on the accuracy of the model.
-- Additionally, using larger datasets, such as Flickr30k, MSCOCO and SBU can potentially improve the accuracy of the image captioning model as it provides more diverse and comprehensive data for the model to learn from. In addition, working with larger datasets can help to reduce overfitting and increase the generalization ability of the model.
-- Moreover, we should consider expanding the application of the model. For example, we could use the same model to generate descriptions for videos or to generate captions for images in a different domain, such as medical imaging.
 
-Overall, this project showcases the potential of using machine learning techniques to develop solutions that can enhance accessibility and inclusivity for people with disabilities.
+- In order to further improve the performance of our model, we recommend that we continue to refine and optimize our feature engineering techniques, exploring new ways to extract meaningful information from our predictors.
+- We also suggest that we consider incorporating additional data sources, such as demographic and economic data, to provide a more comprehensive view of the factors that impact home prices in Ames.
+- Finally, we recommend that we continue to monitor the real estate market in Ames and update our model regularly to ensure that it remains relevant and accurate over time.
+
+Overall, this project represents a significant opportunity for our company to provide a valuable service to our clients, while also gaining a deeper understanding of the complex factors that drive home prices in the Ames real estate market. By continuing to refine and improve our regression model, we can provide our clients with the best possible insights and advice to help them achieve their real estate goals.
