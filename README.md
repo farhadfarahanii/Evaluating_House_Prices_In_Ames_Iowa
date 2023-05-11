@@ -4,10 +4,10 @@
 
 ## Contents:
 
-- [Problem Statement](#Problem Statement)
+- [Problem Statement](#Problem-Statement)
 - [Background](#Background)
 - [Datasets](#Datasets)
-- [Exploratory Data Analysis and Pre-Processing (EDA)](#Exploratory-Data Analysis-and-Pre-Processing-(EDA))
+- [Exploratory Data Analysis and Pre-Processing (EDA)](#Exploratory-Data-Analysis-and-Pre-Processing-(EDA))
 - [Correlation of All Features with Target](#Correlation-of-All-Features-with-Target)
 - [Feature Engineering](#Feature-Engineering)
 - [Normalization with Ridge and Lasso](#Normalization-with-Ridge-and-Lasso)
@@ -270,7 +270,7 @@ In the following table we could see the models with their scores:
 |Model|MSE Score|RMSE Score|Test R-Squered Score|
 |---|---|---|---|
 |Baseline|---|---|0.8788|
-|Regression|421685876.9387207|20534.991525167978|0.92128|
+|Regression|421685876.9387207|20534.991525167978|0.9212|
 |Regression on Engineered Features|337570067.90575826|18373.079978755828|0.9369|
 |Overfitted Model|938254321.4937987|30630.93732639925|0.8248|
 |Ridge CV Regression Model|359520615.6486912|18961.028865773376|0.9328|
