@@ -1,8 +1,26 @@
 # ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) A Comprehensive Study of the Factors that Affect Home Prices in Ames, Iowa¶
 
+---
+
+## Contents:
+
+- [Problem Statement](#Problem Statement)
+- [Background](#Background)
+- [Datasets](#Datasets)
+- [Exploratory Data Analysis and Pre-Processing (EDA)](#Exploratory-Data Analysis-and-Pre-Processing-(EDA))
+- [Correlation of All Features with Target](#Correlation-of-All-Features-with-Target)
+- [Feature Engineering](#Feature-Engineering)
+- [Normalization with Ridge and Lasso](#Normalization-with-Ridge-and-Lasso)
+- [Model Evaluation](#Model-Evaluation)
+- [Conclusions and Recommendations](#Conclusions-and-Recommendations)
+
+---
+
 ### Problem Statement
 
 As a realtor company operating in Ames, Iowa, our goal is to help our clients make informed decisions when buying or selling a home. One of the key factors that our clients consider is the price of the property, and we want to develop a reliable regression model that can accurately predict the prices of homes in this area. By analyzing a dataset of previous home sales in Ames and identifying the key features that impact home prices, we aim to create a regression model that can be used to predict future prices based on a variety of property characteristics. Our ultimate goal is to provide our clients with a powerful tool that can help them make smart and profitable real estate decisions.
+
+---
 
 ### Background
 
@@ -237,7 +255,7 @@ Moreover, we utilized Ridge CV and Lasso CV techniques. Ridge CV and Lasso CV ar
 
 ---
 
-### Models Evaluation
+### Model Evaluation
 
 In this phase, we compared six different models to determine the best performing one:
 - The First Model **(Baseline)**: which was based solely on numerical features before transforming categorical features into numerical ones. We utilized cross-validation and a linear model to obtain the baseline score.
