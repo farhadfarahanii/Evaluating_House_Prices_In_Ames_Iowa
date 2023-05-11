@@ -118,7 +118,6 @@ The raw dataset provided from Kaggle: consisting 80 variables that could impact 
 |MoSold|Numeric(Discrete)|Month Sold|
 |YrSold|Numeric(Discrete)|Year Sold|
 |SaleType|Object(Categorical)|Type of sale|
-|SaleCondition|: |Condition of sale|
 
 ---
 
@@ -144,7 +143,7 @@ For some variables, such as those related to basement and above ground levels, w
 
 **Incompatibility in Ground levels**
 
-![sample_image_captions](Images/sample_image_captions.png)
+![ground_level_incompatibility](Images/ground_level_incompatibility.png)
 
 We Utilized imputation techniques to address incompatibilities in ground levels
 
