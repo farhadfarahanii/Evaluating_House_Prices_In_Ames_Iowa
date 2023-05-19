@@ -241,7 +241,7 @@ By creating new features based on the sum of other features and utilizing Polyno
 
 ### Create a Large Dataset with Polynomial Features of All Predictors
 
-After applying the polynomial feature transformer on all of our features, we ended up with a large number of features, which leaded to overfitting. To avoid overfitting, we needed to use normalization techniques to make the model more generalized. One of the main normalization techniques is scaling, which is necessary because our features have different scales. Scaling helps to ensure that all features are equally important during training, regardless of their initial scale. Without scaling, larger features may have a disproportionately greater impact on the model's prediction, which can lead to overfitting. Therefore, we utilized standard scaling to scale our features, which involves transforming the data to have zero mean and unit variance.
+After applying the polynomial feature transformer on all of our features, we ended up with a large number of features, which leaded to overfitting. To avoid overfitting, we needed to use normalization techniques to make the model more generalized. But, before applying normalization techniques we need to scale our data, which is necessary because our features have different scales. Scaling helps to ensure that all features are equally important during training, regardless of their initial scale. Without scaling, larger features may have a disproportionately greater impact on the model's prediction, which can lead to overfitting. Therefore, we utilized standard scaling to scale our features, which involves transforming the data to have zero mean and unit variance.
 
 
 ### Normalization with Ridge and Lasso
